@@ -2,14 +2,13 @@ package com.example.foroom.data.constants
 
 object TestData {
 
-    const val VALID_USERNAME = "student"
-    const val VALID_PASSWORD = "Student123!"
-    const val INVALID_PASSWORD = "DefinitelyNotMyPass!"
-    const val NON_EXISTENT_USERNAME = "UserWhoNeverExisted"
+    const val PROFILE_TEST_USERNAME = "lika_tsulaia"
+    const val PROFILE_TEST_PASSWORD = "LikaTest123!"
+    const val UPDATED_PASSWORD = "LikaTest456!"
 
-    const val INVALID_USERNAME_ERROR = "Username does not exist"
-    const val INVALID_PASSWORD_ERROR = "Incorrect password"
+    const val CHAT_NAME_PREFIX = "Lika Tsulaia"
 
-    fun generateUniqueUsername(): String =
-        "LikaTest${System.currentTimeMillis()}"
+    fun generateUniqueChatName(): String =
+        "$CHAT_NAME_PREFIX ${System.currentTimeMillis()}"
+
 }

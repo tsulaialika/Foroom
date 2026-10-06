@@ -1,10 +1,8 @@
 package com.example.foroom.steps
 
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.assertion.ViewAssertions.doesNotExist
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
-import androidx.test.espresso.matcher.ViewMatchers.withText
 import com.example.foroom.Helper.input
 import com.example.foroom.Helper.tap
 import com.example.foroom.Helper.waitUntilVisible
@@ -19,46 +17,43 @@ class LoginSteps {
         onView(loginPage.logInButton)
             .waitUntilVisible(TestConstants.DEFAULT_TIMEOUT)
             .check(matches(isDisplayed()))
-
-        onView(loginPage.signUpButton)
-            .waitUntilVisible(TestConstants.DEFAULT_TIMEOUT)
-            .check(matches(isDisplayed()))
     }
 
     fun enterUsername(username: String) = apply {
         onView(loginPage.userNameField)
+            .waitUntilVisible(TestConstants.DEFAULT_TIMEOUT)
             .input(username)
     }
 
     fun enterPassword(password: String) = apply {
         onView(loginPage.passwordField)
+            .waitUntilVisible(TestConstants.DEFAULT_TIMEOUT)
             .input(password)
     }
 
     fun clickLogin() = apply {
         onView(loginPage.logInButton)
+            .waitUntilVisible(TestConstants.DEFAULT_TIMEOUT)
             .tap()
     }
 
-    fun clickSignUp() = apply {
-        onView(loginPage.signUpButton)
-            .tap()
-    }
-
-    fun verifyUsernameError(expectedMessage: String) = apply {
-        onView(loginPage.userNameError)
+    fun verifyHomeScreenDisplayed() = apply {
+        onView(loginPage.homeContainer)
             .waitUntilVisible(TestConstants.DEFAULT_TIMEOUT)
-            .check(matches(withText(expectedMessage)))
-    }
+            .check(matches(isDisplayed()))
 
-    fun verifyPasswordError(expectedMessage: String) = apply {
-        onView(loginPage.passwordError)
+        onView(loginPage.navBar)
             .waitUntilVisible(TestConstants.DEFAULT_TIMEOUT)
-            .check(matches(withText(expectedMessage)))
+            .check(matches(isDisplayed()))
     }
 
-    fun verifyUsernameErrorNotDisplayed() = apply {
-        onView(loginPage.userNameError)
-            .check(doesNotExist())
+    // Full login flow, reused by all three scenarios
+    fun loginWithCredentials(username: String, password: String) = apply {
+        verifyLoginScreenDisplayed()
+        enterUsername(username)
+        enterPassword(password)
+        clickLogin()
+        verifyHomeScreenDisplayed()
     }
+
 }
