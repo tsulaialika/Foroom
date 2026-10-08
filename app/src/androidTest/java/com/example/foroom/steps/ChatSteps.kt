@@ -32,7 +32,9 @@ class ChatSteps {
             .input(chatName)
     }
 
-    fun selectChatImage(position: Int = TestConstants.DEFAULT_CHAT_IMAGE_POSITION) = apply {
+    fun selectChatImage(
+        position: Int = TestConstants.DEFAULT_CHAT_IMAGE_POSITION
+    ) = apply {
         onView(createChatPage.readyImageChooser)
             .waitUntilVisible(TestConstants.DEFAULT_TIMEOUT)
 
@@ -42,24 +44,8 @@ class ChatSteps {
     fun clickCreateChat() = apply {
         onView(createChatPage.createChatButton)
             .waitUntilVisible(TestConstants.DEFAULT_TIMEOUT)
-            .tap()
-    }
-
-    // Opened chat screen
-    fun verifyChatScreenDisplayed(chatName: String) = apply {
-        onView(chatsPage.openedChatTitle(chatName))
-            .waitUntilVisible(TestConstants.DEFAULT_TIMEOUT)
             .check(matches(isDisplayed()))
-    }
-
-    fun closeChat() = apply {
-        onView(chatsPage.leaveChatButton)
-            .waitUntilVisible(TestConstants.DEFAULT_TIMEOUT)
             .tap()
-
-        onView(chatsPage.chatsRecyclerView)
-            .waitUntilVisible(TestConstants.DEFAULT_TIMEOUT)
-            .check(matches(isDisplayed()))
     }
 
     // Chat list
@@ -75,4 +61,29 @@ class ChatSteps {
             .check(matches(isDisplayed()))
     }
 
+    fun openChatAndVerify(chatName: String) = apply {
+        onView(chatsPage.openChatButton(chatName))
+            .waitUntilVisible(TestConstants.DEFAULT_TIMEOUT)
+            .check(matches(isDisplayed()))
+            .tap()
+
+        verifyChatScreenDisplayed(chatName)
+    }
+
+    fun verifyChatScreenDisplayed(chatName: String) = apply {
+        onView(chatsPage.openedChatTitle(chatName))
+            .waitUntilVisible(TestConstants.DEFAULT_TIMEOUT)
+            .check(matches(isDisplayed()))
+    }
+
+    fun closeChat() = apply {
+        onView(chatsPage.leaveChatButton)
+            .waitUntilVisible(TestConstants.DEFAULT_TIMEOUT)
+            .check(matches(isDisplayed()))
+            .tap()
+
+        onView(chatsPage.chatsRecyclerView)
+            .waitUntilVisible(TestConstants.DEFAULT_TIMEOUT)
+            .check(matches(isDisplayed()))
+    }
 }

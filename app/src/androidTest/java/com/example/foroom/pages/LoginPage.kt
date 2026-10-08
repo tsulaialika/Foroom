@@ -24,8 +24,6 @@ class LoginPage {
     )
 
     val logInButton: Matcher<View> = withId(R.id.logInButton)
-
     val homeContainer: Matcher<View> = withId(R.id.homeContainer)
     val navBar: Matcher<View> = withId(R.id.navBar)
-
 }

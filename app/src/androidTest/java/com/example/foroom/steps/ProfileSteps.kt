@@ -11,6 +11,7 @@ import com.example.foroom.data.constants.TestConstants
 import com.example.foroom.pages.ChangeLanguagePage
 import com.example.foroom.pages.ChangePasswordPage
 import com.example.foroom.pages.ChatsPage
+import com.example.foroom.pages.LoginPage
 import com.example.foroom.pages.ProfilePage
 
 class ProfileSteps {
@@ -19,8 +20,8 @@ class ProfileSteps {
     private val profilePage = ProfilePage()
     private val changePasswordPage = ChangePasswordPage()
     private val changeLanguagePage = ChangeLanguagePage()
+    private val loginPage = LoginPage()
 
-    // Navigation
     fun openProfile() = apply {
         onView(chatsPage.profileNavigation)
             .waitUntilVisible(TestConstants.DEFAULT_TIMEOUT)
@@ -31,7 +32,6 @@ class ProfileSteps {
             .check(matches(isDisplayed()))
     }
 
-    // Change password
     fun openChangePassword() = apply {
         onView(profilePage.changePasswordItem)
             .waitUntilVisible(TestConstants.DEFAULT_TIMEOUT)
@@ -55,10 +55,10 @@ class ProfileSteps {
     fun confirmPasswordChange() = apply {
         onView(changePasswordPage.submitPasswordButton)
             .waitUntilVisible(TestConstants.DEFAULT_TIMEOUT)
+            .check(matches(isDisplayed()))
             .tap()
     }
 
-    // Full flow from the home screen, used to restore the original password
     fun changePasswordTo(newPassword: String) = apply {
         openProfile()
         openChangePassword()
@@ -66,15 +66,17 @@ class ProfileSteps {
         confirmPasswordChange()
     }
 
-    // Change language
     fun switchLanguage(language: AppLanguage) = apply {
         onView(profilePage.changeLanguageItem)
             .waitUntilVisible(TestConstants.DEFAULT_TIMEOUT)
             .tap()
 
         val option = when (language) {
-            AppLanguage.GEORGIAN -> changeLanguagePage.geoLanguageOption
-            AppLanguage.ENGLISH -> changeLanguagePage.engLanguageOption
+            AppLanguage.GEORGIAN ->
+                changeLanguagePage.geoLanguageOption
+
+            AppLanguage.ENGLISH ->
+                changeLanguagePage.engLanguageOption
         }
 
         onView(option)
@@ -88,4 +90,14 @@ class ProfileSteps {
             .check(matches(isDisplayed()))
     }
 
+    fun signOut() = apply {
+        onView(profilePage.signOutItem)
+            .waitUntilVisible(TestConstants.DEFAULT_TIMEOUT)
+            .check(matches(isDisplayed()))
+            .tap()
+
+        onView(loginPage.logInButton)
+            .waitUntilVisible(TestConstants.DEFAULT_TIMEOUT)
+            .check(matches(isDisplayed()))
+    }
 }

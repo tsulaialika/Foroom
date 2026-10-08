@@ -19,6 +19,9 @@
       <SelectionState runConfigName="LoginAndRegistrationTests">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
+      <SelectionState runConfigName="userCanSendDrinkMessageAndSeeItAfterReopeningChat()">
+        <option name="selectionMode" value="DROPDOWN" />
+      </SelectionState>
     </selectionStates>
   </component>
 </project>

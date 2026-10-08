@@ -34,6 +34,7 @@ class LoginSteps {
     fun clickLogin() = apply {
         onView(loginPage.logInButton)
             .waitUntilVisible(TestConstants.DEFAULT_TIMEOUT)
+            .check(matches(isDisplayed()))
             .tap()
     }
 
@@ -47,13 +48,14 @@ class LoginSteps {
             .check(matches(isDisplayed()))
     }
 
-    // Full login flow, reused by all three scenarios
-    fun loginWithCredentials(username: String, password: String) = apply {
+    fun loginWithCredentials(
+        username: String,
+        password: String
+    ) = apply {
         verifyLoginScreenDisplayed()
         enterUsername(username)
         enterPassword(password)
         clickLogin()
         verifyHomeScreenDisplayed()
     }
-
 }

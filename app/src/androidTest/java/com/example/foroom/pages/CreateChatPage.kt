@@ -30,14 +30,19 @@ class CreateChatPage {
         isDescendantOfA(chatImageChooser)
     )
 
-    val readyImageChooser: Matcher<View> = allOf(chatImageChooser, chatImagesLoaded())
+    val readyImageChooser: Matcher<View> = allOf(
+        chatImageChooser,
+        chatImagesLoaded()
+    )
 
     val createChatButton: Matcher<View> = withId(R.id.createChatButton)
 
     private fun chatImagesLoaded() = object : TypeSafeMatcher<View>() {
 
         override fun describeTo(description: Description) {
-            description.appendText(TestConstants.CHAT_IMAGES_LOADED_DESCRIPTION)
+            description.appendText(
+                TestConstants.CHAT_IMAGES_LOADED_DESCRIPTION
+            )
         }
 
         override fun matchesSafely(view: View): Boolean =
@@ -45,5 +50,4 @@ class CreateChatPage {
                     view.isChoosingEnabled &&
                     view.images.isNotEmpty()
     }
-
 }

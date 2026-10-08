@@ -18,7 +18,31 @@ class ChatsPage {
     val createChatNavigation: Matcher<View> = withId(R.id.homeNavigationCreateChat)
     val profileNavigation: Matcher<View> = withId(R.id.homeNavigationProfile)
 
-    // Opened chat screen
+    // Chat list
+    private val searchChatInput: Matcher<View> = withId(R.id.searchChatInput)
+
+    val searchChatField: Matcher<View> = allOf(
+        isAssignableFrom(EditText::class.java),
+        isDescendantOfA(searchChatInput)
+    )
+
+    val chatsRecyclerView: Matcher<View> = withId(R.id.chatsRecyclerView)
+
+    fun chatCard(chatName: String): Matcher<View> = allOf(
+        withId(DesignR.id.chatTitleTextView),
+        withText(chatName),
+        isDescendantOfA(chatsRecyclerView)
+    )
+
+    fun openChatButton(chatName: String): Matcher<View> = allOf(
+        withId(DesignR.id.sendMessageButton),
+        hasSibling(chatCard(chatName))
+    )
+
+    // Used by the existing Android 3 tests.
+    fun chatListItem(chatName: String): Matcher<View> = chatCard(chatName)
+
+    // Opened conversation
     private val messagesRecyclerView: Matcher<View> = withId(R.id.messagesRecyclerView)
 
     val chatHeader: Matcher<View> = allOf(
@@ -35,21 +59,4 @@ class ChatsPage {
         withText(chatName),
         isDescendantOfA(chatHeader)
     )
-
-    // Chat list
-    val searchChatInput: Matcher<View> = withId(R.id.searchChatInput)
-
-    val searchChatField: Matcher<View> = allOf(
-        isAssignableFrom(EditText::class.java),
-        isDescendantOfA(searchChatInput)
-    )
-
-    val chatsRecyclerView: Matcher<View> = withId(R.id.chatsRecyclerView)
-
-    fun chatListItem(chatName: String): Matcher<View> = allOf(
-        withId(DesignR.id.chatTitleTextView),
-        withText(chatName),
-        isDescendantOfA(chatsRecyclerView)
-    )
-
 }

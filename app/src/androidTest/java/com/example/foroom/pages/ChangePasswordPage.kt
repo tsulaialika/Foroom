@@ -23,6 +23,6 @@ class ChangePasswordPage {
         isDescendantOfA(repeatPasswordInput)
     )
 
-    val submitPasswordButton: Matcher<View> = withId(DesignR.id.actionButton)
-
+    val submitPasswordButton: Matcher<View> =
+        withId(DesignR.id.actionButton)
 }

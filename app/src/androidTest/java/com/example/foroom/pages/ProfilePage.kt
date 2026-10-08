@@ -12,10 +12,10 @@ class ProfilePage {
 
     val changePasswordItem: Matcher<View> = withId(R.id.changePasswordItem)
     val changeLanguageItem: Matcher<View> = withId(R.id.changeLanguageItem)
+    val signOutItem: Matcher<View> = withId(R.id.signOutItem)
 
     fun changeLanguageLabel(label: String): Matcher<View> = allOf(
         withText(label),
         isDescendantOfA(changeLanguageItem)
     )
-
 }
